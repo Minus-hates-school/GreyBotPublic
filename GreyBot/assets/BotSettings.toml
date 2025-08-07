@@ -1,0 +1,9 @@
+[server]
+host = "85.215.109.98"
+port = 8080
+
+[roles]
+
+[game]
+realworld = "August 05, 2025 15:55"
+ingame = "October 28, 2006 19:52"

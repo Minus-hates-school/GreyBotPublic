@@ -1,0 +1,42 @@
+[atmosphere]
+send_welcome = "No"
+create_database = "No"
+
+
+[logging]
+message_edit = 9999999999999
+message_deletion = 99999999999
+message_send = 1000000000000
+ignored_channels = []
+user_join = 99999999999
+user_leave = 99999999999
+user_namechange = 1000000000000000
+user_avatarchange = 1000000000000
+log_messages = "yes"
+log_users = "yes"
+log_events = "yes"
+
+
+[moderation]
+admin = 1000000000000000
+mod = 10000000000000
+member = 10000000000
+guest = 100000000000 #USED FOR NAUGHTY PEOPLE
+
+
+[verification]
+channel = 1000000000
+role = 1000000000000000000
+
+
+[commands]
+members = "general"
+admin = "ALL"
+mod = "general"
+
+
+[server]
+owner = 9999999
+id = 9990000
+catagories = []
+leader_board = 1

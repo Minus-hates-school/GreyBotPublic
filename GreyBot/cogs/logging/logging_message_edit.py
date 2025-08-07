@@ -1,0 +1,54 @@
+import logging
+from discord.ext import commands
+
+from GreyBot.utils.interactions._embeds import (
+    embed_message_edit,  # pylint: disable=E0401
+)
+
+logger = logging.getLogger(__name__)
+
+
+class LoggingMessageEdit(commands.Cog):
+    """
+    Simple listener to on_message_edit
+    """
+
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_message_edit(self, message_before, message_after):
+        # Ignore any bot messages
+        if message_before.author.bot or message_after.author.bot:
+            return
+
+        # IGNORE /run, since we will set up an on_message_edit handler there with opposite logic
+        if message_before.content.startswith('/run') or message_after.content.startswith('/run'):
+            return
+
+        # Don't record edits in Staff only channels.
+        if message_before.channel.category_id == 940543787250364486:  # This is the ID of the "staff area" category.
+            # Yes, that's hardcoded. Suck it.
+            return
+
+        elif message_before.content != message_after.content:
+            # This guy here makes sure we use the displayed name inside the guild.
+
+            if message_after.author.nick is None:
+                username = message_after.author
+            else:
+                username = message_after.author.nick
+
+            author = message_after.author
+
+            embed = embed_message_edit(username, author, message_before, message_after)
+                                                    ##self.bot.server_settings.log_channel["chat_log"]
+            logs_channel = await self.bot.fetch_channel("1394474643431362562")
+            await logs_channel.send(embed=embed)
+
+
+async def setup(bot):
+    """
+    Necessary for loading the cog into the bot instance.
+    """
+    await  bot.add_cog(LoggingMessageEdit(bot))
